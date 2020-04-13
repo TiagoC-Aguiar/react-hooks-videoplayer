@@ -1,9 +1,14 @@
 import React from 'react'
+import StyledNightmode from './styles/StyledNightmode'
 
-const NightMode = props => (
-  <div>
-    NightMode!
-  </div>
+const NightMode = ({ nightMode, nightModeCallback}) => (
+  <StyledNightmode>
+    <span>NightMode!</span>
+    <label className="switch">
+      <input type="checkbox" ckecked={nightMode} onChange={nightModeCallback} />
+      <span className="slider round" />
+    </label>
+  </StyledNightmode>
 )
 
 export default NightMode
