@@ -12,3 +12,5 @@ const StyledVideo = styled.div`
   }
 `
 
+export default StyledVideo
+
