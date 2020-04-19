@@ -7,7 +7,6 @@ const PlaylistItemWithLink = withLink(PlaylistItem)
 
 const PlaylistItems = ({ videos, active }) => (
   <StyledPlaylistitems>
-    {/* <PlaylistItem  /> */}
     {videos.map(video => (
       <PlaylistItemWithLink 
         key={video.id}

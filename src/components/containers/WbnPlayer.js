@@ -55,17 +55,42 @@ const WbnPlayer = ({ match, history, location }) => {
   }, [history, location.autoplay, match.params.activeVideo, state.activeVideo.id, state.videos])
 
   const nightModeCallback = () => {
-    console.log('nightmode callback')
+    setState(prev => ({
+      ...prev,
+      nightMode: !prev.nightMode,      
+    }))
   }
 
   const endCallback = () => {
-    console.log('end callback');
-    
+    const videoId = match.params.activeVideo
+    const currentVideoIndex = state.videos.findIndex(video => video.id === videoId)
+    const nextVideo = currentVideoIndex === state.videos.length - 1 ? 0 : currentVideoIndex + 1
+
+    history.push({
+      pathname: `${state.videos[nextVideo].id}`,
+      autoplay: false,
+    })
+
   }
 
-  const progressCallback = () => {
-    console.log('progress callback');
-    
+  const progressCallback = e => {
+    if(e.playedSeconds > 10 && e.playedSeconds < 11) {
+      const videos = [...state.videos]
+      const playedVideo = videos.find(
+        video => video.id === state.activeVideo.id
+      )
+      playedVideo.played = true 
+      setState(prevState => ({ ...prevState, videos }))     
+     
+      // setState(prev => ({
+      //   ...prev,
+      //   videos: prev.videos.map(element => {
+      //     return element.id === prev.activeVideo.id ?
+      //       {...element, played: true} : 
+      //       element
+      //   })
+      // }))
+    }
   }
 
   return (
